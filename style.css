@@ -255,3 +255,36 @@ body {
 .btn-delete { background: rgba(255,92,92,0.15);  color: var(--priority-high); }
 .btn-edit:hover, .btn-delete:hover { opacity: 0.75; }
 
+/* ---------- Add Task / Clear All buttons ---------- */
+.btn-add {
+  width: 100%;
+  padding: 9px;
+  background: transparent;
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-btn);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+.btn-add:hover {
+  background: var(--bg-card);
+  color: var(--text-main);
+}
+
+.btn-clear {
+  width: 100%;
+  padding: 9px;
+  background: rgba(255,92,92,0.1);
+  border: 1px solid rgba(255,92,92,0.3);
+  border-radius: var(--radius-btn);
+  color: var(--priority-high);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.btn-clear:hover { background: rgba(255,92,92,0.2); }
+
