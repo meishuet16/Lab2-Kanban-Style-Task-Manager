@@ -29,5 +29,51 @@
     </div>
   </header>
 
+<!--MAIN BOARD-->
+  <main class="board">
+
+    <!-- Column 1: To Do -->
+    <section class="column" id="todo">
+      <div class="column-header">
+        <h2 class="column-title">📌 To Do</h2>
+        <span class="column-count" id="count-todo">0</span>
+      </div>
+      <!-- Task list — event delegation listener attached here by JS -->
+      <ul class="task-list" id="list-todo"></ul>
+      <!-- Add Task button for this column -->
+      <button class="btn-add" data-column="todo">+ Add Task</button>
+    </section>
+
+    <!-- Column 2: In Progress -->
+    <section class="column" id="inprogress">
+      <div class="column-header">
+        <h2 class="column-title">⚙️ In Progress</h2>
+        <span class="column-count" id="count-inprogress">0</span>
+      </div>
+      <ul class="task-list" id="list-inprogress"></ul>
+      <button class="btn-add" data-column="inprogress">+ Add Task</button>
+    </section>
+
+    <!-- Column 3: Done -->
+    <section class="column" id="done">
+      <div class="column-header">
+        <h2 class="column-title">✅ Done</h2>
+        <span class="column-count" id="count-done">0</span>
+      </div>
+      <ul class="task-list" id="list-done"></ul>
+      <button class="btn-add" data-column="done">+ Add Task</button>
+      <!-- Clear All button — only in Done column -->
+      <button class="btn-clear" id="btnClearDone">🗑 Clear All Done</button>
+    </section>
+
+  </main>
+
+
+  <!-- Link to external JavaScript file — placed at bottom so HTML loads first -->
+  <script src="taskmanager.js">
+    
+    
+  </script>
+
 </body>
 </html>
