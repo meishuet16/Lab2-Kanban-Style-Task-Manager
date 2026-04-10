@@ -3,22 +3,24 @@
    use them everywhere. If we change --accent-todo, every
    blue element updates automatically. */
 :root {
-  --bg-page:        #0f1117;
-  --bg-header:      #1a1d27;
-  --bg-column:      #1e2130;
+  --bg-page:        #F6ECC9;
+  --bg-header:      #0D4336;
+  --bg-column-todo: #EB7A53;
+  --bg-column-prog: #F7D44C;
+  --bg-column-done: #A7C8DA;
   --bg-card:        #272b3d;
   --bg-card-hover:  #2e3350;
   --bg-modal:       #1e2130;
   --border-color:   #333755;
-  --accent-todo:    #4f8ef7;
+  --accent-todo:    #EB2129;
   --accent-prog:    #f7a94f;
-  --accent-done:    #4fc87f;
+  --accent-done:    #47709B;
   --priority-high:  #ff5c5c;
   --priority-med:   #f7c94f;
   --priority-low:   #4fc87f;
   --text-main:      #e8eaf0;
-  --text-muted:     #8b8fa8;
-  --text-label:     #b0b4cc;
+  --text-muted:     #FEFFFF;
+  --text-label:     #F4F2F1;
   --radius-card:    12px;
   --radius-btn:     8px;
   --shadow-card:    0 4px 16px rgba(0,0,0,0.35);
@@ -99,5 +101,118 @@ body {
   font-size: 0.85rem;
   cursor: pointer;
   outline: none;
+}
+
+/* ---------- Board — 3-column flex layout ---------- */
+/* Flexbox = imagine three boxes placed side by side in a row.
+   flex: 1 means each column shares the available space equally. */
+.board {
+  display: flex;
+  gap: 20px;
+  padding: 28px;
+  align-items: flex-start;
+  min-height: calc(100vh - 70px);
+  overflow-x: auto; /* horizontal scroll on small screens */
+}
+
+/* ---------- Column ---------- */
+.column {
+  flex: 1;
+  min-width: 280px;
+  max-width: 380px;
+  background: var(--bg-column);
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  padding: 18px 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Coloured top border per column using id selectors */
+#todo       { border-top: 3px solid var(--accent-todo); background:var(--bg-column-todo);}
+#inprogress { border-top: 3px solid var(--accent-prog); background:var(--bg-column-prog);}
+#done       { border-top: 3px solid var(--accent-done); background:var(--bg-column-done);}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.column-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.column-count {
+  background: var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+/* ---------- Task List (the <ul>) ---------- */
+.task-list {
+  list-style: none; /* remove bullet points */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 60px;
+}
+
+/* ---------- Task Card (each <li>) ---------- */
+.task-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  padding: 14px 14px 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-card);
+  /* transition makes the hover effect smooth, not instant */
+  transition: background var(--transition), transform var(--transition);
+}
+
+.task-card:hover {
+  background: var(--bg-card-hover);
+  transform: translateY(-2px); /* lifts card slightly on hover */
+}
+
+/* Title span inside card — cursor:text hints it's double-clickable */
+.task-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+  display: block;
+  margin-bottom: 5px;
+  cursor: text;
+}
+
+/* The <input> that temporarily replaces the title span during inline edit */
+.inline-edit-input {
+  font-size: 0.95rem;
+  font-weight: 600;
+  width: 100%;
+  background: var(--bg-page);
+  color: var(--text-main);
+  border: 1px solid var(--accent-todo);
+  border-radius: 5px;
+  padding: 3px 6px;
+  margin-bottom: 5px;
+  outline: none;
+  font-family: inherit;
+}
+
+.task-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.task-due {
+  font-size: 0.75rem;
+  color: var(--text-label);
+  margin-bottom: 8px;
 }
 
