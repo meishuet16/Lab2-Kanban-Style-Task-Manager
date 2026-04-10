@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Task Board</title>
+  <!-- Link to external stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!--HEADER-->
+  <header class="app-header">
+    <div class="header-left">
+      <!-- App title -->
+      <h1 class="app-title">📋 My Task Board</h1>
+      <!-- Task counter badge — updated dynamically by JS -->
+      <span class="task-counter" id="taskCounter">0 tasks</span>
+    </div>
+    <div class="header-right">
+      <!-- Priority filter dropdown — JS listens for changes -->
+      <label for="priorityFilter" class="filter-label">Filter by Priority:</label>
+      <select id="priorityFilter" class="filter-select">
+        <option value="all">All</option>
+        <option value="high">🔴 High</option>
+        <option value="medium">🟡 Medium</option>
+        <option value="low">🟢 Low</option>
+      </select>
+    </div>
+  </header>
+
+</body>
+</html>
