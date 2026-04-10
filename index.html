@@ -68,11 +68,56 @@
 
   </main>
 
+  <!--MODAL (hidden by default)-->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="taskModal">
+      <h2 class="modal-title" id="modalTitle">Add Task</h2>
+
+      <!-- Hidden field to track which task is being edited (empty = new task) -->
+      <input type="hidden" id="editTaskId" value="" />
+      <!-- Hidden field to track which column this task belongs to -->
+      <input type="hidden" id="editColumnId" value="" />
+
+      <!-- Task Title -->
+      <div class="form-group">
+        <label for="inputTitle">Title <span class="required">*</span></label>
+        <input type="text" id="inputTitle" placeholder="Enter task title..." class="form-input" />
+      </div>
+
+      <!-- Task Description -->
+      <div class="form-group">
+        <label for="inputDesc">Description</label>
+        <textarea id="inputDesc" placeholder="Enter description..." class="form-textarea" rows="3"></textarea>
+      </div>
+
+      <!-- Priority selector -->
+      <div class="form-group">
+        <label for="inputPriority">Priority</label>
+        <select id="inputPriority" class="form-select">
+          <option value="low">🟢 Low</option>
+          <option value="medium">🟡 Medium</option>
+          <option value="high">🔴 High</option>
+        </select>
+      </div>
+
+      <!-- Due Date picker -->
+      <div class="form-group">
+        <label for="inputDueDate">Due Date</label>
+        <input type="date" id="inputDueDate" class="form-input" />
+      </div>
+
+      <!-- Modal action buttons -->
+      <div class="modal-actions">
+        <button class="btn-save" id="btnSave">💾 Save</button>
+        <button class="btn-cancel" id="btnCancel">✖ Cancel</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Link to external JavaScript file — placed at bottom so HTML loads first -->
   <script src="taskmanager.js">
     
-    
+
   </script>
 
 </body>
