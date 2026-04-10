@@ -216,3 +216,26 @@ body {
   margin-bottom: 8px;
 }
 
+/* Card footer: priority badge on left, buttons on right */
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* ---------- Priority Badges ---------- */
+.priority-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+/* Each priority value gets its own colour */
+.priority-badge.high   { background: rgba(255,92,92,0.18);  color: var(--priority-high); }
+.priority-badge.medium { background: rgba(247,201,79,0.18); color: var(--priority-med);  }
+.priority-badge.low    { background: rgba(79,200,127,0.18); color: var(--priority-low);  }
+
