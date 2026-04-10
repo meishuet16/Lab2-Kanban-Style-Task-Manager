@@ -288,3 +288,103 @@ body {
 
 .btn-clear:hover { background: rgba(255,92,92,0.2); }
 
+/* ---------- Modal Overlay ---------- */
+/* display: none = completely invisible and takes no space.
+   JS adds .is-active to make it display: flex. */
+.modal-overlay {
+  display: none;
+  position: fixed; /* covers entire viewport, ignores scroll */
+  inset: 0;        /* shorthand for top:0; right:0; bottom:0; left:0 */
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 500;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Activated by JS: modalOverlay.classList.add('is-active') */
+.modal-overlay.is-active {
+  display: flex;
+}
+
+.modal {
+  background: var(--bg-modal);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  padding: 30px 28px;
+  width: 90%;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.modal-title { font-size: 1.2rem; font-weight: 700; }
+
+/* ---------- Form Elements ---------- */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-size: 0.82rem;
+  color: var(--text-label);
+  font-weight: 600;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-btn);
+  padding: 9px 12px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color var(--transition);
+  font-family: inherit;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus { border-color: var(--accent-todo); }
+
+.form-textarea { resize: vertical; }
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.btn-save {
+  background: var(--accent-todo);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-btn);
+  padding: 9px 22px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity var(--transition);
+}
+
+.btn-save:hover { opacity: 0.85; }
+
+.btn-cancel {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-btn);
+  padding: 9px 18px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.btn-cancel:hover { background: var(--bg-card); }
+
