@@ -376,3 +376,33 @@ function applyFilter(filterValue) {
   });
 }
 
+/* SECTION 12: CLEAR DONE with STAGGERED ANIMATION
+   (Rubric: Clear Done — 10 marks)
+   Each card fades out 100ms after the previous one */
+
+/**
+ * Removes all task cards in the Done column with a staggered fade-out.
+ * Each card starts fading 100ms after the one before it.
+ */
+function clearDoneTasks() {
+  // Get all card <li> elements currently in the Done list
+  const doneCards = Array.from(listDone.querySelectorAll('.task-card'));
+
+  if (doneCards.length === 0) return; // nothing to clear
+
+  doneCards.forEach(function(card, index) {
+    // Delay each card's animation by index * 100ms (staggered effect)
+    setTimeout(function() {
+      card.classList.add('is-removing');
+
+      // Remove card from DOM and data after animation finishes
+      card.addEventListener('animationend', function() {
+        const taskId = parseInt(card.getAttribute('data-id'), 10);
+        card.remove();
+        tasks = tasks.filter(function(t) { return t.id !== taskId; });
+        updateCounters();
+      });
+    }, index * 100); // 100ms stagger per card
+  });
+}
+
