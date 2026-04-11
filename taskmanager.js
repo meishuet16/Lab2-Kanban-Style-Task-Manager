@@ -221,3 +221,28 @@ function deleteTask(taskId) {
     updateCounters();
   });
 }
+
+/* SECTION 8: editTask (CRUD)
+   Opens the modal pre-filled with the existing task data*/
+
+/**
+ * Opens the modal in edit mode, pre-filled with the task's current data.
+ * @param {number} taskId
+ */
+function editTask(taskId) {
+  // Find the task object in our data array
+  const taskObj = tasks.find(function(t) { return t.id === taskId; });
+  if (!taskObj) return;
+
+  // Pre-fill modal fields with existing values
+  modalTitle.textContent    = 'Edit Task';
+  editTaskIdInput.value     = taskObj.id;       // remember which task we're editing
+  editColumnInput.value     = taskObj.columnId; // remember which column it's in
+  inputTitle.value          = taskObj.title;
+  inputDesc.value           = taskObj.desc;
+  inputPriority.value       = taskObj.priority;
+  inputDueDate.value        = taskObj.dueDate;
+
+  openModal(); // show the modal overlay
+}
+
