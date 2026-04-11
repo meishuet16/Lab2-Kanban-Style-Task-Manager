@@ -41,3 +41,27 @@ const btnSave         = document.getElementById('btnSave');
 const btnCancel       = document.getElementById('btnCancel');
 const btnClearDone    = document.getElementById('btnClearDone');
 
+/*SECTION 3: HELPER —getList（columnId）， get the correct <ul> for a column*/
+
+/**
+ * Returns the <ul> element that belongs to the given columnId.
+ * @param {string} columnId — 'todo' | 'inprogress' | 'done'
+ * @returns {HTMLUListElement}
+ */
+function getList(columnId) {
+  if (columnId === 'todo')       return listTodo;
+  if (columnId === 'inprogress') return listInProgress;
+  if (columnId === 'done')       return listDone;
+}
+
+/**
+ * Returns the count badge <span> for the given columnId.
+ * @param {string} columnId
+ * @returns {HTMLSpanElement}
+ */
+function getCountBadge(columnId) {
+  if (columnId === 'todo')       return countTodo;
+  if (columnId === 'inprogress') return countInProgress;
+  if (columnId === 'done')       return countDone;
+}
+
