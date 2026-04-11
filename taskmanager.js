@@ -321,4 +321,36 @@ function startInlineEdit(titleSpan, taskId) {
   input.focus();
   input.select(); // select all text for quick replacement
 
-  
+  /* commitEdit — saves the new title */
+  function commitEdit() {
+    const newTitle = input.value.trim();
+
+    if (newTitle && newTitle !== currentText) {
+      // Find the task and update its title in the data array
+      const task = tasks.find(function(t) { return t.id === taskId; });
+      if (task) {
+        task.title = newTitle;
+        titleSpan.textContent = newTitle; // update the span text
+      }
+    }
+    // Restore the span and remove the input regardless
+    titleSpan.classList.remove('is-hidden');
+    input.remove();
+  }
+
+  // Commit on Enter key
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      commitEdit();
+    }
+    // Cancel with Escape — restore original text
+    if (e.key === 'Escape') {
+      titleSpan.classList.remove('is-hidden');
+      input.remove();
+    }
+  });
+
+  // Commit on blur (clicking away)
+  input.addEventListener('blur', commitEdit);
+}
+
