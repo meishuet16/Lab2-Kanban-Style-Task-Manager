@@ -195,3 +195,29 @@ function addTask(columnId, taskObj) {
   updateCounters(); // refresh badges
 }
 
+/* SECTION 7: deleteTask (CRUD)
+   Adds css fade-out animation class, waits for animation to end,
+   then removes the card from DOM and data from tasks array*/
+
+/**
+ * Animates then removes the task card with the given id.
+ * @param {number} taskId
+ */
+function deleteTask(taskId) {
+  // Find the card in DOM using attribute selector
+  const card = document.querySelector('[data-id="' + taskId + '"]');
+  if (!card) return;
+
+  // Add the CSS fade-out animation class
+  card.classList.add('is-removing');
+
+  // After animation ends (350ms in CSS), physically remove the element
+  card.addEventListener('animationend', function() {
+    card.remove(); // Rubric: element.remove()
+
+    // Also remove from the data array
+    tasks = tasks.filter(function(t) { return t.id !== taskId; });
+
+    updateCounters();
+  });
+}
