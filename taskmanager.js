@@ -354,3 +354,25 @@ function startInlineEdit(titleSpan, taskId) {
   input.addEventListener('blur', commitEdit);
 }
 
+/* SECTION 11: PRIORITY FILTER (Rubric: Priority filter — 15 marks)
+   Show or hide cards using classList.toggle('is-hidden', condition).
+   Never uses style.display*/
+
+/**
+ * Shows or hides task cards based on selected priority value.
+ * Uses classList.toggle('is-hidden', shouldHide) — not style.display.
+ * @param {string} filterValue — 'all' | 'high' | 'medium' | 'low'
+ */
+function applyFilter(filterValue) {
+  // Select every task card across all columns
+  const allCards = document.querySelectorAll('.task-card');
+
+  allCards.forEach(function(card) {
+    const cardPriority = card.getAttribute('data-priority');
+    // If filter is 'all', show everything; otherwise show only matching priority
+    const shouldHide = (filterValue !== 'all') && (cardPriority !== filterValue);
+    // classList.toggle(className, force) — adds class if true, removes if false
+    card.classList.toggle('is-hidden', shouldHide);
+  });
+}
+
