@@ -164,3 +164,34 @@ function createTaskCard(taskObj) {
   return li; // return the fully built <li> — caller appends it
 }
 
+/* SECTION 6: addTask (CRUD)
+   Saves task object to the tasks array, builds the card,
+   appends it to the correct column, and updates counters*/
+
+/**
+ * Adds a new task to the given column.
+ * @param {string} columnId — 'todo' | 'inprogress' | 'done'
+ * @param {{title:string, desc:string, priority:string, dueDate:string}} taskData
+ */
+function addTask(columnId, taskObj) {
+  // Build the full task object with a unique id
+  const taskObj = {
+    id:       nextId++,
+    columnId: columnId,
+    title:    taskObj.title,
+    desc:     taskObj.desc,
+    priority: taskObj.priority,
+    dueDate:  taskObj.dueDate
+  };
+
+  tasks.push(taskObj); // save to master array
+
+  const card = createTaskCard(taskObj);  // build the DOM card
+  getList(columnId).appendChild(card);   // append to the right <ul>
+
+  // Apply current filter to the newly added card
+  applyFilter(priorityFilter.value);
+
+  updateCounters(); // refresh badges
+}
+
