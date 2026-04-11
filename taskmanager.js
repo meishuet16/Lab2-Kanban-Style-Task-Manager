@@ -295,3 +295,30 @@ function updateTask(taskId, updatedData) {
   updateCounters();
 }
 
+/* SECTION 10: INLINE EDITING (Inline editing)
+   Double-clicking a title replaces it with an <input>.
+   Pressing Enter OR moving focus away (blur) commits the change*/
+
+/**
+ * Replaces a title <span> with an editable <input>.
+ * Committing (Enter / blur) saves the new title back to the task.
+ * @param {HTMLSpanElement} titleSpan
+ * @param {number} taskId
+ */
+function startInlineEdit(titleSpan, taskId) {
+  const currentText = titleSpan.textContent;
+
+  // Create an <input> to replace the span temporarily
+  const input = document.createElement('input');
+  input.classList.add('inline-edit-input');
+  input.value = currentText;
+  input.setAttribute('aria-label', 'Edit task title');
+
+  // Insert the input before the span, then hide the span
+  titleSpan.parentNode.insertBefore(input, titleSpan);
+  titleSpan.classList.add('is-hidden'); // hide original span, not remove
+
+  input.focus();
+  input.select(); // select all text for quick replacement
+
+  
