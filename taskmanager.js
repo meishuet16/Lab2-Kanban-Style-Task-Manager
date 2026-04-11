@@ -499,3 +499,48 @@ function handleSave() {
   closeModal();
 }
 
+/* SECTION 16: "ADD TASK" BUTTON — one listener for all columns
+   Each button carries data-column to know which column to add to*/
+
+// Select all three "Add Task" buttons at once
+const addButtons = document.querySelectorAll('.btn-add');
+
+addButtons.forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    const columnId = btn.getAttribute('data-column'); // 'todo' | 'inprogress' | 'done'
+    modalTitle.textContent = 'Add Task';
+    editColumnInput.value  = columnId; // tell Save which column to target
+    editTaskIdInput.value  = '';       // no taskId = new task mode
+    openModal();
+  });
+});
+
+/* SECTION 17: BIND REMAINING EVENT LISTENERS */
+
+// Save button in modal
+btnSave.addEventListener('click', handleSave);
+
+// Cancel button closes modal without saving
+btnCancel.addEventListener('click', closeModal);
+
+// Click on the dark overlay background also closes modal
+modalOverlay.addEventListener('click', function(e) {
+  // Only close if the click is directly on the overlay, not inside .modal
+  if (e.target === modalOverlay) {
+    closeModal();
+  }
+});
+
+// Priority filter dropdown — filter all cards on change
+priorityFilter.addEventListener('change', function() {
+  applyFilter(priorityFilter.value);
+});
+
+// Clear All Done button
+btnClearDone.addEventListener('click', clearDoneTasks);
+
+// Allow pressing Enter in the title input to submit the modal
+inputTitle.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') { handleSave(); }
+});
+
