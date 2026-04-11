@@ -437,3 +437,65 @@ attachDelegatedListener(listTodo);
 attachDelegatedListener(listInProgress);
 attachDelegatedListener(listDone);
 
+/* SECTION 14: MODAL OPEN / CLOSE */
+
+/**
+ * Opens the modal overlay by adding is-active class.
+ */
+function openModal() {
+  modalOverlay.classList.add('is-active');
+  inputTitle.focus();
+}
+
+/**
+ * Closes the modal and resets all form fields.
+ */
+function closeModal() {
+  modalOverlay.classList.remove('is-active');
+  // Reset all hidden/input fields
+  editTaskIdInput.value = '';
+  editColumnInput.value = '';
+  inputTitle.value      = '';
+  inputDesc.value       = '';
+  inputPriority.value   = 'low';
+  inputDueDate.value    = '';
+  modalTitle.textContent = 'Add Task';
+}
+
+/* SECTION 15: MODAL SAVE — distinguishes Add vs Edit*/
+
+/**
+ * Handles Save button click.
+ * If editTaskId has a value → update existing task.
+ * If empty → create a new task in editColumnId.
+ */
+function handleSave() {
+  const title = inputTitle.value.trim();
+  if (!title) {
+    // Basic validation — title is required
+    inputTitle.focus();
+    inputTitle.style.borderColor = 'var(--priority-high)'; // visual hint
+    return;
+  }
+  inputTitle.style.borderColor = ''; // reset border
+
+  const updatedData = {
+    title:    title,
+    desc:     inputDesc.value.trim(),
+    priority: inputPriority.value,
+    dueDate:  inputDueDate.value
+  };
+
+  const taskIdStr = editTaskIdInput.value;
+
+  if (taskIdStr) {
+    // EDIT mode — update existing task
+    updateTask(parseInt(taskIdStr, 10), updatedData);
+  } else {
+    // ADD mode — create a new task in the specified column
+    addTask(editColumnInput.value, updatedData);
+  }
+
+  closeModal();
+}
+
