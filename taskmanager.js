@@ -246,3 +246,52 @@ function editTask(taskId) {
   openModal(); // show the modal overlay
 }
 
+/* SECTION 9: updateTask (CRUD)
+   Updates the task object in the tasks array and re-renders
+   the matching card's DOM content without rebuilding the list*/
+
+/**
+ * Updates a task's data and refreshes its card in the DOM.
+ * @param {number} taskId
+ * @param {{title:string, desc:string, priority:string, dueDate:string}} updatedData
+ */
+function updateTask(taskId, updatedData) {
+  // Find index in tasks array
+  const idx = tasks.findIndex(function(t) { return t.id === taskId; });
+  if (idx === -1) return;
+
+  // Update the stored task object
+  tasks[idx].title    = updatedData.title;
+  tasks[idx].desc     = updatedData.desc;
+  tasks[idx].priority = updatedData.priority;
+  tasks[idx].dueDate  = updatedData.dueDate;
+
+  // Find the existing card in the DOM
+  const card = document.querySelector('[data-id="' + taskId + '"]');
+  if (!card) return;
+
+  // Update data-priority attribute (needed for filter to work correctly)
+  card.setAttribute('data-priority', updatedData.priority);
+
+  // Update individual text nodes safely — no innerHTML!
+  card.querySelector('.task-title').textContent =
+    updatedData.title;
+
+  card.querySelector('.task-desc').textContent =
+    updatedData.desc || 'No description.';
+
+  card.querySelector('.task-due').textContent =
+    updatedData.dueDate ? '📅 Due: ' + updatedData.dueDate : '📅 No due date';
+
+  // Update priority badge: remove all priority classes, add new one
+  const badge = card.querySelector('.priority-badge');
+  badge.classList.remove('high', 'medium', 'low');
+  badge.classList.add(updatedData.priority);
+  badge.textContent = updatedData.priority.charAt(0).toUpperCase() + updatedData.priority.slice(1);
+
+  // Re-apply current filter so visibility is correct
+  applyFilter(priorityFilter.value);
+
+  updateCounters();
+}
+
