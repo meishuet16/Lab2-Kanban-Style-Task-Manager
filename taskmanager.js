@@ -65,3 +65,21 @@ function getCountBadge(columnId) {
   if (columnId === 'done')       return countDone;
 }
 
+/* SECTION 4: updateCounters
+   Recalculates the total task counter badge in the header
+   and the per-column count badges*/
+
+/**
+ * Updates all task counter UI elements to reflect current tasks array*/
+function updateCounters() {
+  // Total tasks across all columns
+  taskCounterEl.textContent = tasks.length + (tasks.length === 1 ? ' task' : ' tasks');
+
+  // Per-column counts
+  const cols = ['todo', 'inprogress', 'done'];
+  cols.forEach(function(col) {
+    const colCount = tasks.filter(function(t) { return t.columnId === col; }).length;
+    getCountBadge(col).textContent = colCount;
+  });
+}
+
