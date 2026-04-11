@@ -406,3 +406,34 @@ function clearDoneTasks() {
   });
 }
 
+/* SECTION 13: EVENT DELEGATION
+   (Rubric: Event delegation — 20 marks)
+   ONE listener on each column's <ul> handles ALL button clicks
+   inside it by reading data-action and data-id attributes*/
+
+/**
+ * Attaches a single delegated click listener to a column's <ul>.
+ * Handles both Edit and Delete actions by reading data-action.
+ * @param {HTMLUListElement} listEl — the <ul> element to listen on
+ */
+function attachDelegatedListener(listEl) {
+  listEl.addEventListener('click', function(event) {
+    // event.target is the EXACT element that was clicked
+    const action = event.target.getAttribute('data-action'); // 'edit' or 'delete'
+    const idStr  = event.target.getAttribute('data-id');
+
+    // If the clicked element has no data-action, it's not a button — ignore
+    if (!action || !idStr) return;
+
+    const taskId = parseInt(idStr, 10); // convert string to number
+
+    if (action === 'delete') { deleteTask(taskId); }
+    if (action === 'edit')   { editTask(taskId);   }
+  });
+}
+
+// Attach ONE delegated listener to each column's <ul>
+attachDelegatedListener(listTodo);
+attachDelegatedListener(listInProgress);
+attachDelegatedListener(listDone);
+
