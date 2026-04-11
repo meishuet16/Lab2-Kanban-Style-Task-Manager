@@ -173,15 +173,15 @@ function createTaskCard(taskObj) {
  * @param {string} columnId — 'todo' | 'inprogress' | 'done'
  * @param {{title:string, desc:string, priority:string, dueDate:string}} taskData
  */
-function addTask(columnId, taskObj) {
+function addTask(columnId, taskData) {
   // Build the full task object with a unique id
   const taskObj = {
     id:       nextId++,
     columnId: columnId,
-    title:    taskObj.title,
-    desc:     taskObj.desc,
-    priority: taskObj.priority,
-    dueDate:  taskObj.dueDate
+    title:    taskData.title,
+    desc:     taskData.desc,
+    priority: taskData.priority,
+    dueDate:  taskData.dueDate
   };
 
   tasks.push(taskObj); // save to master array
@@ -544,3 +544,38 @@ inputTitle.addEventListener('keydown', function(e) {
   if (e.key === 'Enter') { handleSave(); }
 });
 
+/* SECTION 18: INITIALISE WITH SAMPLE DATA
+   Shows 3 starter cards so the board is not empty on load */
+
+/**
+ * Initialise — adds a few sample tasks so the board looks populated.
+ * This is called once when the script first loads.
+ */
+function init() {
+  addTask('todo', {
+    title:    'Read Lab 2 brief',
+    desc:     'Read through all task requirements and rubric carefully.',
+    priority: 'high',
+    dueDate:  '2026-04-10'
+  });
+  addTask('todo', {
+    title:    'Set up HTML structure',
+    desc:     'Create index.html with header, columns, and modal.',
+    priority: 'medium',
+    dueDate:  '2026-04-11'
+  });
+  addTask('inprogress', {
+    title:    'Write taskmanager.js',
+    desc:     'Implement all five CRUD functions using DOM API only.',
+    priority: 'high',
+    dueDate:  '2026-04-12'
+  });
+  addTask('done', {
+    title:    'Design style.css',
+    desc:     'Create a clean dark theme with CSS variables.',
+    priority: 'low',
+    dueDate:  '2026-04-12'
+  });
+}
+
+init(); // Run on page load
