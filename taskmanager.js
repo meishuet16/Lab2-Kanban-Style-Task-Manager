@@ -490,11 +490,13 @@ function handleSave() {
   }
    inputTitle.classList.remove('input-error'); // reset border
 
+    const targetColumn = inputStatus.value;
+
   const updatedData = {
     title:    title,
     desc:     inputDesc.value.trim(),
     priority: inputPriority.value,
-    columnId: inputStatus.value,
+    columnId: targetColumn, 
     dueDate:  inputDueDate.value
   };
 
@@ -505,7 +507,7 @@ function handleSave() {
     updateTask(parseInt(taskIdStr, 10), updatedData);
   } else {
     // ADD mode — create a new task in the specified column
-    addTask(editColumnInput.value, updatedData);
+    addTask(targetColumn, updatedData);
   }
 
   closeModal();
