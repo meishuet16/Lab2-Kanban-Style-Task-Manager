@@ -37,6 +37,7 @@ const inputTitle      = document.getElementById('inputTitle');
 const inputDesc       = document.getElementById('inputDesc');
 const inputPriority   = document.getElementById('inputPriority');
 const inputDueDate    = document.getElementById('inputDueDate');
+const inputStatus     = document.getElementById('inputStatus');
 const btnSave         = document.getElementById('btnSave');
 const btnCancel       = document.getElementById('btnCancel');
 const btnClearDone    = document.getElementById('btnClearDone');
@@ -238,6 +239,7 @@ function editTask(taskId) {
   modalTitle.textContent    = 'Edit Task';
   editTaskIdInput.value     = taskObj.id;       // remember which task we're editing
   editColumnInput.value     = taskObj.columnId; // remember which column it's in
+  inputStatus.value         = taskObj.columnId;
   inputTitle.value          = taskObj.title;
   inputDesc.value           = taskObj.desc;
   inputPriority.value       = taskObj.priority;
@@ -260,11 +262,14 @@ function updateTask(taskId, updatedData) {
   const idx = tasks.findIndex(function(t) { return t.id === taskId; });
   if (idx === -1) return;
 
+  const oldColumnId = tasks[idx].columnId;//remember old address
+
   // Update the stored task object
   tasks[idx].title    = updatedData.title;
   tasks[idx].desc     = updatedData.desc;
   tasks[idx].priority = updatedData.priority;
   tasks[idx].dueDate  = updatedData.dueDate;
+  tasks[idx].columnId = updatedData.columnId;
 
   // Find the existing card in the DOM
   const card = document.querySelector('[data-id="' + taskId + '"]');
@@ -288,6 +293,11 @@ function updateTask(taskId, updatedData) {
   badge.classList.remove('high', 'medium', 'low');
   badge.classList.add(updatedData.priority);
   badge.textContent = updatedData.priority.charAt(0).toUpperCase() + updatedData.priority.slice(1);
+
+  //If status(todo->in progress) change,move card to latest column
+  if (oldColumnId !== updatedData.columnId) {
+    getList(updatedData.columnId).appendChild(card);
+  }
 
   // Re-apply current filter so visibility is correct
   applyFilter(priorityFilter.value);
@@ -458,6 +468,7 @@ function closeModal() {
   inputTitle.value      = '';
   inputDesc.value       = '';
   inputPriority.value   = 'low';
+  inputStatus.value = 'todo';
   inputDueDate.value    = '';
   modalTitle.textContent = 'Add Task';
 }
@@ -483,6 +494,7 @@ function handleSave() {
     title:    title,
     desc:     inputDesc.value.trim(),
     priority: inputPriority.value,
+    columnId: inputStatus.value,
     dueDate:  inputDueDate.value
   };
 
@@ -494,6 +506,7 @@ function handleSave() {
   } else {
     // ADD mode — create a new task in the specified column
     addTask(editColumnInput.value, updatedData);
+    inputStatus.value = columnId;
   }
 
   closeModal();
@@ -511,6 +524,7 @@ addButtons.forEach(function(btn) {
     modalTitle.textContent = 'Add Task';
     editColumnInput.value  = columnId; // tell Save which column to target
     editTaskIdInput.value  = '';       // no taskId = new task mode
+    inputStatus.value     = columnId;
     openModal();
   });
 });
@@ -552,7 +566,7 @@ inputTitle.addEventListener('keydown', function(e) {
  * This is called once when the script first loads.
  */
 function init() {
-  addTask('todo', {
+  addTask('done', {
     title:    'Read Lab 2 brief',
     desc:     'Read through all task requirements and rubric carefully.',
     priority: 'high',
@@ -572,7 +586,7 @@ function init() {
   });
   addTask('done', {
     title:    'Design style.css',
-    desc:     'Create a clean dark theme with CSS variables.',
+    desc:     'Create a clean blue theme with CSS variables.',
     priority: 'low',
     dueDate:  '2026-04-12'
   });
