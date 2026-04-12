@@ -485,10 +485,10 @@ function handleSave() {
   if (!title) {
     // Basic validation — title is required
     inputTitle.focus();
-    inputTitle.style.borderColor = 'var(--priority-high)'; // visual hint
+    inputTitle.classList.add('input-error');  
     return;
   }
-  inputTitle.style.borderColor = ''; // reset border
+   inputTitle.classList.remove('input-error'); // reset border
 
   const updatedData = {
     title:    title,
@@ -506,7 +506,6 @@ function handleSave() {
   } else {
     // ADD mode — create a new task in the specified column
     addTask(editColumnInput.value, updatedData);
-    inputStatus.value = columnId;
   }
 
   closeModal();

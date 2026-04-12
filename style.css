@@ -3,26 +3,30 @@
    use them everywhere. If we change --accent-todo, every
    blue element updates automatically. */
 :root {
-  --bg-page:        #F6ECC9;
-  --bg-header:      #0D4336;
-  --bg-column-todo: #EB7A53;
+  --bg-page:        #AFC8DA;
+  /*--bg-header:      #0D4336;*/
+  --bg-header:      #47709B;
+ /* --bg-column-todo: #FF9BB3;
   --bg-column-prog: #F7D44C;
-  --bg-column-done: #A7C8DA;
-  --bg-card:        #272b3d;
-  --bg-card-hover:  #2e3350;
-  --bg-modal:       #1e2130;
-  --border-color:   #333755;
-  --accent-todo:    #EB2129;
-  --accent-prog:    #f7a94f;
-  --accent-done:    #47709B;
+  --bg-column-done: #A7C8DA;*/
+  --bg-column-todo: #AED3FF;
+  --bg-column-prog: #AED3FF;
+  --bg-column-done: #AED3FF;
+  --bg-card:        #B4E6FF;
+  --bg-card-hover:  #FFFAE6;
+  --bg-modal:       #9DC6F5;
+  --border-color:   #BFB6A7;
+  --accent-todo:    #33342F;
+  --accent-prog:    #33342F;
+  --accent-done:    #33342F;
   --priority-high:  #ff5c5c;
   --priority-med:   #f7c94f;
   --priority-low:   #4fc87f;
-  --text-main:      #e8eaf0;
-  --text-muted:     #FEFFFF;
-  --text-label:     #F4F2F1;
+  --text-main:      #070E18;
+  --text-muted:     #070E18;
+  --text-label:     #0F1616;
   --radius-card:    12px;
-  --radius-btn:     8px;
+  --radius-btn:     10px;
   --shadow-card:    0 4px 16px rgba(0,0,0,0.35);
   --transition:     0.2s ease;
 }
